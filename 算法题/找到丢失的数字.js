@@ -23,7 +23,7 @@ function genderList(length) {
 function m1(list) {
 	let leg = list.length + 1;
 	let sum = (leg+1) * (leg/2);
-	return sum - eval(list.join("+"));
+	return sum - list.reduce((v1,v2) => v1+v2);
 }
 
 /**
@@ -48,5 +48,5 @@ function testMethod(method, list, name) {
 	return end - begin;
 }
 
-let source = genderList(10000000);
+let source = genderList(100000000);
 console.log(`倍率:${testMethod(m1, source, "方法一") / testMethod(m2, source, "方法二")}`)
