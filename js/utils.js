@@ -8,7 +8,7 @@ export function deepClone(obj = {}) {
 	}
 	let result = Array.isArray(obj) ? [] : {};
 	for (let key in obj) {
-		obj.hasOwnProperty(key) && obj[key] = deepClone(obj[key]);
+		obj.hasOwnProperty(key) && (obj[key] = deepClone(obj[key]));
 	}
 	return result;
 }
