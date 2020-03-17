@@ -12,3 +12,36 @@ export function deepClone(obj = {}) {
 	}
 	return result;
 }
+
+/**
+ * 防抖
+ */
+export function debounce(func, wait) {
+	let timeout = null;
+	return function() {
+		if (timeout) {
+			clearTimeout(timeout);
+			timeout = setTimeout(() => {
+				func(arguments);
+				timeout = null;
+			}, wait);
+		} else {
+			timeout = true;
+			func(arguments);
+		}
+	}
+}
+
+/**
+ * 节流
+ */
+export function waterTap(func, delay) {
+	let prev = Date.now();
+	return function() {
+		const now = Date.now();
+		if (now - prev >= delay) {
+			func.call(this, arguments);
+			prev = now;
+		}
+	}
+}
