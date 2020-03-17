@@ -19,10 +19,10 @@ const source = {'A':1,'B.A':2,'B.B':3,'CC.D.E':4,'CC.D.F':5};
 function assignment(result, keys, value) {
 	let key = keys.shift();
 	if (keys.length) {
-		result[key] = value;
-	} else {
 		result[key] = result[key] || {};
-		assignment(result[key], keys, value);
+		arguments.callee(result[key], keys, value);
+	} else {
+		result[key] = value;
 	}
 }
 function pointSplit(obj, result = {}) {
