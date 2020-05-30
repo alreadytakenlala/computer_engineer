@@ -18,9 +18,16 @@ class LRUCache {
 	get(key) {
 		let item = this.data[key];
 		if (!item) return -1;
-		let temp = this.arr[this.arr.length-1];
+		
+		// 替换arr位置
+		let temp1 = this.arr[this.arr.length-1];
 		this.arr[this.arr.length-1] = this.arr[item.index];
-		this.arr[item.index] = temp;
+		this.arr[item.index] = temp1;
+
+		let temp2 = item.index;
+		item.index = this.data[temp1].index;
+		this.data[temp1].index = temp2;
+		
 		return item.value;
 	}
 }
