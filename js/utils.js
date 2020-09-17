@@ -8,7 +8,7 @@ export function deepClone(obj = {}) {
 	}
 	let result = Array.isArray(obj) ? [] : {};
 	for (let key in obj) {
-		obj.hasOwnProperty(key) && (obj[key] = deepClone(obj[key]));
+		obj.hasOwnProperty(key) && (result[key] = deepClone(obj[key]));
 	}
 	return result;
 }
@@ -18,16 +18,16 @@ export function deepClone(obj = {}) {
  */
 export function debounce(func, wait) {
 	let timeout = null;
-	return function() {
+	return function () {
 		if (timeout) {
 			clearTimeout(timeout);
 			timeout = setTimeout(() => {
-				func(arguments);
+				func.call(this, ...arguments);
 				timeout = null;
 			}, wait);
 		} else {
 			timeout = true;
-			func(arguments);
+			func.call(this, ...arguments);
 		}
 	}
 }
@@ -37,10 +37,10 @@ export function debounce(func, wait) {
  */
 export function waterTap(func, delay) {
 	let prev = Date.now();
-	return function() {
+	return () => {
 		const now = Date.now();
 		if (now - prev >= delay) {
-			func.call(this, arguments);
+			func.call(this, ...arguments);
 			prev = now;
 		}
 	}
